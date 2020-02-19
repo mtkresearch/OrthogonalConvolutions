@@ -1,0 +1,185 @@
+{ "version": "1.0",
+    "experiment": {
+        "name": "Text experiment",
+        "description": "Description of experiment, optional",
+        "path": "/experiments/test_create",
+        "seed": 0
+    },
+    "dataset": {
+        "path": "/tf/notebooks/data/cifar10",
+	"augment": {
+	    "rotation_range": 15,
+    	    "width_shift_range": 0.1,
+    	    "height_shift_range": 0.1,
+    	    "horizontal_flip": true 
+	}
+    },
+    "model": {
+        "layers": [
+            {
+                "name": "Conv2D",
+                "args": {
+                    "filters": 80,
+		    "kernel_size": [3,3],
+		    "padding": "same"
+                }
+            },
+	    {
+		 "name": "BatchNormalization"
+	    },
+	    {
+		"name": "Activation",
+		"args": {
+		    "activation": "relu"
+		}
+	    },
+            {
+                "name": "NetXCycle",
+                "args": {
+                    "output_shape": [
+                       	45,
+                        45,
+                       	78 
+                    ],
+		    "kernel_shape": [3,3],
+		    "dropout_rate": 0.1,
+		    "kernel_regularizer": {
+		        "name": "l2",
+			"args": {
+			    "rate": 1E-4
+			}
+		    },
+		    "activation": "relu"
+                }
+            },
+            {
+                "name": "NetXCycle",
+                "args": {
+                    "output_shape": [
+                       	28,
+                        28,
+                       	62 
+                    ],
+		    "kernel_shape": [3,3],
+		    "dropout_rate": 0.1,
+		    "kernel_regularizer": {
+		        "name": "l2",
+			"args": {
+			    "rate": 1E-4
+			}
+		    },
+		    "activation": "relu"
+                }
+            },
+            {
+                "name": "NetXCycle",
+                "args": {
+                    "output_shape": [
+                       	26,
+                        26,
+                       	47 
+                    ],
+		    "kernel_shape": [3,3],
+		    "dropout_rate": 0.1,
+		    "kernel_regularizer": {
+		        "name": "l2",
+			"args": {
+			    "rate": 1E-4
+			}
+		    },
+		    "activation": "relu"
+                }
+            },
+            {
+                "name": "NetXCycle",
+                "args": {
+                    "output_shape": [
+                       	18,
+                        18,
+                       	32 
+                    ],
+		    "kernel_shape": [3,3],
+		    "dropout_rate": 0.1,
+		    "kernel_regularizer": {
+		        "name": "l2",
+			"args": {
+			    "rate": 1E-4
+			}
+		    },
+		    "activation": "relu"
+                }
+            },
+            {
+                "name": "NetXCycle",
+                "args": {
+                    "output_shape": [
+                       	10,
+                        10,
+                       	16 
+                    ],
+		    "kernel_shape": [3,3],
+		    "dropout_rate": 0.1,
+		    "kernel_regularizer": {
+		        "name": "l2",
+			"args": {
+			    "rate": 1E-4
+			}
+		    },
+		    "activation": "relu"
+                }
+            },
+            {
+                "name": "NetXCycle",
+                "args": {
+                    "output_shape": [
+                       	5,
+                        5,
+                       	8 
+                    ],
+		    "kernel_shape": [3,3],
+		    "dropout_rate": 0.1,
+		    "kernel_regularizer": {
+		        "name": "l2",
+			"args": {
+			    "rate": 1E-4
+			}
+		    },
+		    "activation": "relu"
+                }
+            },
+            {
+                "name": "Flatten"
+            },
+	    {
+		 "name": "Dense",
+		 "args": {
+		     "units": 10
+		 }
+	    },
+	    {
+		 "name": "Activation",
+		 "args": {
+		     "activation": "softmax"
+		 }
+	    }
+        ],
+        "compile": {
+            "metrics": [
+		"accuracy"
+            ]
+        },
+	"optimizer": {
+            "name": "RMSprop",
+	    "args": {
+		"decay": 1E-6
+	    }
+	},
+	"loss": {
+	    "loss": "categorical_crossentropy"
+	}
+    },
+    "training": {
+        "batch_size": 64,
+        "epochs": 400
+    }
+}
