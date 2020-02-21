@@ -1,12 +1,12 @@
 import tensorflow
 import logging
-from .NetXCycle import NetXCycle
+from .OrthogonalConv import OrthogonalConv
 from .BilinearInterpolate3D import BilinearInterpolate3D
 from tensorflow.keras import layers, Model, regularizers
 
 class ModelFactory:
     layer_dict = {
-        'NetXCycle': NetXCycle, 
+        'OrthogonalConv': OrthogonalConv, 
         'Conv2D': layers.Conv2D,
         'Dense': layers.Dense,
         'Conv3D': layers.Conv3D,

@@ -6,9 +6,9 @@ import random
 import numpy as np
 from tensorflow.keras.callbacks import TensorBoard, ReduceLROnPlateau, ModelCheckpoint
 from common.datasets import DatasetImagesH5
-from representation.netx.layers import ModelFactory 
-from representation.netx.optimizers import OptimizerFactory 
-from representation.netx.config import * 
+from layers import ModelFactory 
+from optimizers import OptimizerFactory 
+from config import * 
 from imgaug import augmenters as iaa
 
 def get_callbacks(path):

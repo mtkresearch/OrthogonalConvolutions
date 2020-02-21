@@ -2,9 +2,9 @@ import tensorflow
 from tensorflow.keras.layers import Layer, Conv2D, Permute, Activation, Dropout, BatchNormalization
 from tensorflow.keras.regularizers import l2
 
-class NetXCycle(Layer):
+class OrthogonalConv(Layer):
     """
-    NetXCycle layer is a block built of three convolutions along different axis. 
+    OrthogonalConv layer is a block built of three convolutions along different axis. 
     Each convolution is followed by other standard layers, such as batch norm and dropout, depending on the defined parameters.
     """
     def __init__(self, output_shape, kernel_shape=(2,2), activation='relu', dropout_rate=0.0, kernel_regularizer=None, **kwargs):
@@ -18,7 +18,7 @@ class NetXCycle(Layer):
         '''
         assert(len(output_shape) == 3)
         assert(len(kernel_shape) == 2)
-        super(NetXCycle, self).__init__(**kwargs)
+        super(OrthogonalConv, self).__init__(**kwargs)
 
         self._output_shape = output_shape
         self._kernel_shape = kernel_shape
@@ -48,7 +48,7 @@ class NetXCycle(Layer):
     def build(self, input_shape):
         # Create a trainable weight variable for this layer.
         assert(len(input_shape) == 4)
-        super(NetXCycle, self).build(input_shape)  # Be sure to call this at the end
+        super(OrthogonalConv, self).build(input_shape)  # Be sure to call this at the end
 
     def call(self, x):
         assert(len(x.shape) == 4)
@@ -75,7 +75,7 @@ class NetXCycle(Layer):
 
     def get_config(self):
         # need to override this
-        config = super(NetXCycle, self).get_config().copy()
+        config = super(OrthogonalConv, self).get_config().copy()
         config.update({
            'output_shape': self._output_shape,
            'kernel_shape': self._kernel_shape,
